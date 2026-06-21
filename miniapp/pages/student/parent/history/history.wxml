@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="section-title">确认历史</view>
+  <view wx:for="{{historyList}}" wx:key="id" class="card history-card">
+    <view class="history-header">
+      <view class="history-title">{{item.title}}</view>
+      <view class="status status-{{item.status}}">{{item.statusText}}</view>
+    </view>
+    <view class="text-muted">{{item.subject}} · {{item.time}}</view>
+    <view class="history-note" wx:if="{{item.note}}">备注：{{item.note}}</view>
+  </view>
+  <view wx:if="{{historyList.length === 0}}" class="card empty">暂无记录</view>
+</view>

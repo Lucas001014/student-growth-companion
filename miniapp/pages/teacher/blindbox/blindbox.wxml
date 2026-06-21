@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="section-title">盲盒活动</view>
+  <view wx:for="{{boxes}}" wx:key="id" class="card box-card">
+    <view class="box-header">
+      <view class="box-title">{{item.name}}</view>
+      <view class="tag-{{item.status === 'active' ? 'sr' : 'n'}}">{{item.status === 'active' ? '进行中' : '已结束'}}</view>
+    </view>
+    <view class="text-muted">消耗积分：{{item.cost}} · 参与人数：{{item.participants}}</view>
+    <view class="box-action">
+      <button class="btn-primary" bindtap="edit" data-id="{{item.id}}">编辑</button>
+      <button class="btn-warning" bindtap="toggle" data-id="{{item.id}}">{{item.status === 'active' ? '关闭' : '开启'}}</button>
+    </view>
+  </view>
+  <button class="btn-primary mt-btn" bindtap="create">+ 新建盲盒</button>
+
+  <view class="section-title">最近抽取</view>
+  <view class="card">
+    <view wx:for="{{records}}" wx:key="id" class="record-row">
+      <view>
+        <view>{{item.student}} 抽中 {{item.skin}}</view>
+        <view class="text-muted">{{item.time}}</view>
+      </view>
+      <view class="tag-{{item.rarity}}">{{item.rarity}}</view>
+    </view>
+    <view wx:if="{{records.length === 0}}" class="empty">暂无抽取记录</view>
+  </view>
+</view>

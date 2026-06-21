@@ -1,0 +1,11 @@
+.top-three { display: flex; justify-content: space-around; background: #fff; border-radius: 24rpx; padding: 40rpx 20rpx; margin-bottom: 30rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06); }
+.top-item { text-align: center; flex: 1; }
+.top-rank { font-size: 48rpx; }
+.top-item .avatar { width: 100rpx; height: 100rpx; border-radius: 50%; margin: 12rpx 0; background: #e5e7eb; }
+.top-name { font-size: 28rpx; font-weight: 500; }
+.top-points { font-size: 24rpx; color: #409EFF; margin-top: 4rpx; }
+.rank-row { display: flex; align-items: center; padding: 24rpx 0; border-bottom: 2rpx solid #f3f4f6; font-size: 28rpx; }
+.rank-row:last-child { border-bottom: none; }
+.rank-header { font-size: 24rpx; color: #909399; font-weight: normal; border-bottom: 2rpx solid #ebeef5; }
+.me-row { background: rgba(64, 158, 255, 0.08); border-radius: 8rpx; padding-left: 16rpx; }
+.me-tag { display: inline-block; font-size: 20rpx; background: #409EFF; color: #fff; padding: 2rpx 12rpx; border-radius: 20rpx; margin-top: 4rpx; }

@@ -1,0 +1,87 @@
+<view class="container">
+  <view class="profile-card">
+    <view style="display: flex; align-items: center;">
+      <view class="avatar-lg" style="font-size: 80rpx;">👨‍🎓</view>
+      <view style="margin-left: 24rpx;">
+        <view style="font-size: 36rpx; font-weight: 600;">{{user.name}}</view>
+        <view style="font-size: 24rpx; opacity: 0.85; margin-top: 6rpx;">学号：{{user.studentNo}}</view>
+        <view style="margin-top: 12rpx;">
+          <view class="badge">{{user.identity}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="points-bar">
+      <view class="points-num">{{user.points}}</view>
+      <view class="points-label">当前积分</view>
+    </view>
+  </view>
+
+  <view class="section-title">我的皮肤墙</view>
+  <scroll-view scroll-x class="skins-scroll">
+    <view class="skin-item" bindtap="goSkins">
+      <image src="{{recentSkins[0].imageUrl}}" mode="aspectFill" />
+      <view class="skin-name">{{recentSkins[0].name}}</view>
+    </view>
+    <view class="skin-item" bindtap="goSkins">
+      <image src="{{recentSkins[1].imageUrl}}" mode="aspectFill" />
+      <view class="skin-name">{{recentSkins[1].name}}</view>
+    </view>
+    <view class="skin-item" bindtap="goSkins">
+      <image src="{{recentSkins[2].imageUrl}}" mode="aspectFill" />
+      <view class="skin-name">{{recentSkins[2].name}}</view>
+    </view>
+    <view class="skin-item" bindtap="goSkins">
+      <image src="{{recentSkins[3].imageUrl}}" mode="aspectFill" />
+      <view class="skin-name">{{recentSkins[3].name}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="section-title">荣誉动态</view>
+  <view class="card">
+    <view class="event">
+      <view class="event-dot">🎖️</view>
+      <view class="event-content">
+        <view>{{honorEvents[0].title}}</view>
+        <view class="text-muted">{{honorEvents[0].time}}</view>
+      </view>
+    </view>
+    <view class="event">
+      <view class="event-dot">✨</view>
+      <view class="event-content">
+        <view>{{honorEvents[1].title}}</view>
+        <view class="text-muted">{{honorEvents[1].time}}</view>
+      </view>
+    </view>
+    <view class="event">
+      <view class="event-dot">🏆</view>
+      <view class="event-content">
+        <view>{{honorEvents[2].title}}</view>
+        <view class="text-muted">{{honorEvents[2].time}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">快捷入口</view>
+  <view class="quick-grid">
+    <view class="quick-item" bindtap="goRanking">
+      <view class="quick-icon">🏆</view>
+      <view>排行榜</view>
+    </view>
+    <view class="quick-item" bindtap="goBlindbox">
+      <view class="quick-icon">🎁</view>
+      <view>盲盒</view>
+    </view>
+    <view class="quick-item" bindtap="goHomework">
+      <view class="quick-icon">📚</view>
+      <view>作业</view>
+    </view>
+    <view class="quick-item" bindtap="goParent">
+      <view class="quick-icon">👨‍👩‍👧</view>
+      <view>家长模式</view>
+    </view>
+  </view>
+
+  <view style="margin-top: 40rpx; text-align: center;">
+    <view class="logout-btn" bindtap="logout">退出登录</view>
+  </view>
+</view>

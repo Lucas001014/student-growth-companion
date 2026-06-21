@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索学生姓名或学号" value="{{keyword}}" bindinput="onSearch" />
+    <button class="btn-primary add-btn" bindtap="addStudent">+ 新增</button>
+  </view>
+  <view class="card">
+    <view wx:for="{{students}}" wx:key="id" class="stu-row" bindtap="goDetail" data-id="{{item.id}}">
+      <image class="avatar" src="{{item.avatar}}" mode="aspectFill" />
+      <view class="stu-info">
+        <view class="stu-name">{{item.name}}</view>
+        <view class="text-muted">学号：{{item.studentNo}} · 积分 {{item.points}}</view>
+      </view>
+      <view class="stu-action">
+        <button size="mini" class="btn-primary" bindtap="grantPoints" catchtap="grantPoints" data-id="{{item.id}}">+积分</button>
+      </view>
+    </view>
+    <view wx:if="{{students.length === 0}}" class="empty">暂无学生</view>
+  </view>
+</view>

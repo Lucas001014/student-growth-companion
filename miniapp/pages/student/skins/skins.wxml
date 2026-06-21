@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="filter-bar">
+    <view class="filter-item {{filter === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-filter="all">全部</view>
+    <view class="filter-item {{filter === 'ssr' ? 'active' : ''}}" bindtap="switchFilter" data-filter="ssr">SSR</view>
+    <view class="filter-item {{filter === 'sr' ? 'active' : ''}}" bindtap="switchFilter" data-filter="sr">SR</view>
+    <view class="filter-item {{filter === 'r' ? 'active' : ''}}" bindtap="switchFilter" data-filter="r">R</view>
+    <view class="filter-item {{filter === 'n' ? 'active' : ''}}" bindtap="switchFilter" data-filter="n">N</view>
+  </view>
+  <view class="skin-grid">
+    <view wx:for="{{skinList}}" wx:key="id" class="skin-card {{item.owned ? '' : 'not-owned'}}" bindtap="showDetail" data-id="{{item.id}}">
+      <view class="skin-image">
+        <image src="{{item.imageUrl}}" mode="aspectFill" />
+        <view class="skin-tag tag-{{item.rarity}}">{{item.rarity}}</view>
+      </view>
+      <view class="skin-name">{{item.name}}</view>
+      <view class="text-muted" style="font-size: 22rpx;">{{item.owned ? '已拥有' : '未解锁'}}</view>
+    </view>
+  </view>
+</view>

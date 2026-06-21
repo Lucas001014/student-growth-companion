@@ -1,0 +1,9 @@
+.req-row { display: flex; align-items: center; justify-content: space-between; padding: 24rpx 0; border-bottom: 2rpx solid #f3f4f6; }
+.req-row:last-child { border-bottom: none; }
+.req-title { font-size: 28rpx; font-weight: 500; }
+.status { font-size: 24rpx; padding: 6rpx 16rpx; border-radius: 20rpx; }
+.status-pending { background: #fef3c7; color: #92400e; }
+.status-approved { background: #d1fae5; color: #065f46; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.submit-btn { border-radius: 12rpx !important; margin-top: 20rpx !important; }
+.empty { text-align: center; padding: 40rpx 0; color: #909399; font-size: 26rpx; }

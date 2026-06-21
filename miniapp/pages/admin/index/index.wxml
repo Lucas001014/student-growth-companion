@@ -1,0 +1,64 @@
+<view class="container">
+  <view class="welcome-card">
+    <view style="font-size: 28rpx; opacity: 0.9;">管理员控制台</view>
+    <view style="font-size: 40rpx; font-weight: bold; margin-top: 8rpx;">Admin Panel</view>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <view class="stat-num">{{stats.classes}}</view>
+        <view class="stat-label">班级</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.teachers}}</view>
+        <view class="stat-label">教师</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.students}}</view>
+        <view class="stat-label">学生</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.skins}}</view>
+        <view class="stat-label">皮肤</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">快捷操作</view>
+  <view class="quick-grid">
+    <view class="quick-item" bindtap="goTeachers">
+      <view class="quick-icon">👨‍🏫</view>
+      <view>教师管理</view>
+    </view>
+    <view class="quick-item" bindtap="goSkins">
+      <view class="quick-icon">🎨</view>
+      <view>皮肤库</view>
+    </view>
+    <view class="quick-item" bindtap="goConfig">
+      <view class="quick-icon">⚙️</view>
+      <view>积分配置</view>
+    </view>
+    <view class="quick-item" bindtap="goClasses">
+      <view class="quick-icon">🏫</view>
+      <view>班级管理</view>
+    </view>
+  </view>
+
+  <view class="section-title">系统概览</view>
+  <view class="card">
+    <view class="overview-row">
+      <view>本月新增积分</view>
+      <view style="color: #67C23A; font-weight: bold;">+{{stats.monthlyPoints}}</view>
+    </view>
+    <view class="overview-row">
+      <view>皮肤发放数量</view>
+      <view style="color: #409EFF; font-weight: bold;">{{stats.grantedSkins}}</view>
+    </view>
+    <view class="overview-row">
+      <view>称号发放数量</view>
+      <view style="color: #E6A23C; font-weight: bold;">{{stats.grantedTitles}}</view>
+    </view>
+    <view class="overview-row">
+      <view>盲盒开启次数</view>
+      <view style="color: #F56C6C; font-weight: bold;">{{stats.boxDraws}}</view>
+    </view>
+  </view>
+</view>

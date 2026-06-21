@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="box-card">
+    <view class="box-emoji">🎁</view>
+    <view class="box-title">{{box.name}}</view>
+    <view class="box-desc">消耗积分：{{box.cost}} 分</view>
+    <view class="box-pool">
+      <view class="text-muted">奖池包含：</view>
+      <view class="pool-tags">
+        <view wx:for="{{box.pool}}" wx:key="id" class="pool-tag tag-{{item.rarity}}">{{item.name}}</view>
+      </view>
+    </view>
+    <button class="btn-primary draw-btn" bindtap="draw">立即抽取</button>
+  </view>
+
+  <view class="section-title">抽奖结果</view>
+  <view wx:if="{{result}}" class="result-card">
+    <view class="result-emoji">🎉</view>
+    <view class="result-name">{{result.name}}</view>
+    <view class="tag-{{result.rarity}} result-tag">{{result.rarity}}</view>
+  </view>
+  <view wx:else class="card empty">暂无抽取结果，快来试试手气吧！</view>
+
+  <view class="section-title">我的抽奖记录</view>
+  <view class="card">
+    <view wx:for="{{history}}" wx:key="id" class="history-row">
+      <view class="flex-col">
+        <view class="item-title">{{item.name}}</view>
+        <view class="text-muted">{{item.time}}</view>
+      </view>
+      <view class="tag-{{item.rarity}}">{{item.rarity}}</view>
+    </view>
+    <view wx:if="{{history.length === 0}}" class="empty">暂无记录</view>
+  </view>
+</view>

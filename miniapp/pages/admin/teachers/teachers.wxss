@@ -1,0 +1,9 @@
+.search-bar { display: flex; align-items: center; gap: 16rpx; margin-bottom: 20rpx; }
+.search-input { flex: 1; background: #fff; border: 2rpx solid #e5e7eb; border-radius: 12rpx; padding: 20rpx 24rpx; font-size: 28rpx; }
+.add-btn { border-radius: 12rpx !important; font-size: 26rpx !important; padding: 0 24rpx !important; }
+.t-row { display: flex; align-items: center; padding: 20rpx 0; border-bottom: 2rpx solid #f3f4f6; }
+.t-row:last-child { border-bottom: none; }
+.t-row .avatar { width: 80rpx; height: 80rpx; border-radius: 50%; margin-right: 20rpx; background: #e5e7eb; }
+.t-info { flex: 1; }
+.t-name { font-size: 30rpx; font-weight: 500; }
+.empty { text-align: center; padding: 40rpx 0; color: #909399; font-size: 26rpx; }

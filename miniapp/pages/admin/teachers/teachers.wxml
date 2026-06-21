@@ -1,0 +1,17 @@
+<view class="container">
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索教师" value="{{keyword}}" bindinput="onSearch" />
+    <button class="btn-primary add-btn" bindtap="addTeacher">+ 新增</button>
+  </view>
+  <view class="card">
+    <view wx:for="{{teachers}}" wx:key="id" class="t-row">
+      <image class="avatar" src="{{item.avatar}}" mode="aspectFill" />
+      <view class="t-info">
+        <view class="t-name">{{item.name}}</view>
+        <view class="text-muted">{{item.phone}} · 管理 {{item.classCount}} 个班级</view>
+      </view>
+      <button size="mini" class="btn-primary" bindtap="editTeacher" catchtap="editTeacher" data-id="{{item.id}}">编辑</button>
+    </view>
+    <view wx:if="{{teachers.length === 0}}" class="empty">暂无教师</view>
+  </view>
+</view>

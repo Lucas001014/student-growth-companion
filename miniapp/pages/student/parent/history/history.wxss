@@ -1,0 +1,8 @@
+.history-card { padding: 24rpx; }
+.history-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8rpx; }
+.history-title { font-size: 30rpx; font-weight: 600; }
+.history-note { margin-top: 12rpx; font-size: 26rpx; color: #6b7280; background: #f9fafb; padding: 16rpx; border-radius: 8rpx; }
+.status { font-size: 24rpx; padding: 6rpx 16rpx; border-radius: 20rpx; }
+.status-approved { background: #d1fae5; color: #065f46; }
+.status-rejected { background: #fee2e2; color: #991b1b; }
+.empty { text-align: center; padding: 60rpx 0; color: #909399; font-size: 26rpx; }

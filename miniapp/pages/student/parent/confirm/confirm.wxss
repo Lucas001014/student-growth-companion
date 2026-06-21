@@ -1,0 +1,8 @@
+.todo-card { padding: 24rpx; }
+.todo-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8rpx; }
+.todo-title { font-size: 30rpx; font-weight: 600; }
+.todo-image { width: 100%; height: 320rpx; border-radius: 12rpx; background: #f3f4f6; margin: 16rpx 0; }
+.todo-action { display: flex; gap: 20rpx; }
+.todo-action button { flex: 1; border-radius: 12rpx !important; font-size: 28rpx; }
+.mt-btn { border-radius: 12rpx !important; margin-top: 20rpx !important; }
+.empty { text-align: center; padding: 60rpx 0; color: #909399; font-size: 26rpx; }

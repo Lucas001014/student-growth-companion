@@ -1,0 +1,14 @@
+<view class="container">
+  <view class="section-title">我的申请记录</view>
+  <view class="card">
+    <view wx:for="{{requests}}" wx:key="id" class="req-row">
+      <view class="req-info">
+        <view class="req-title">{{item.title}}</view>
+        <view class="text-muted">{{item.time}} · {{item.type}}</view>
+      </view>
+      <view class="status status-{{item.status}}">{{item.statusText}}</view>
+    </view>
+    <view wx:if="{{requests.length === 0}}" class="empty">暂无申请</view>
+  </view>
+  <button class="btn-primary submit-btn" bindtap="newRequest">发起新申请</button>
+</view>

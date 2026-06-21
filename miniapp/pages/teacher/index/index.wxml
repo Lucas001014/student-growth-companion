@@ -1,0 +1,51 @@
+<view class="container">
+  <view class="welcome-card">
+    <view style="font-size: 28rpx; opacity: 0.9;">欢迎回来</view>
+    <view style="font-size: 40rpx; font-weight: bold; margin-top: 8rpx;">老师</view>
+    <view class="welcome-stats">
+      <view class="ws-item">
+        <view class="ws-num">{{stats.students}}</view>
+        <view class="ws-label">学生数</view>
+      </view>
+      <view class="ws-item">
+        <view class="ws-num">{{stats.points}}</view>
+        <view class="ws-label">发放积分</view>
+      </view>
+      <view class="ws-item">
+        <view class="ws-num">{{stats.approvals}}</view>
+        <view class="ws-label">待审批</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">快捷操作</view>
+  <view class="quick-grid">
+    <view class="quick-item" bindtap="goStudents">
+      <view class="quick-icon">👥</view>
+      <view>学生管理</view>
+    </view>
+    <view class="quick-item" bindtap="goHonor">
+      <view class="quick-icon">🏆</view>
+      <view>发放荣誉</view>
+    </view>
+    <view class="quick-item" bindtap="goApproval">
+      <view class="quick-icon">✍️</view>
+      <view>审批中心</view>
+    </view>
+    <view class="quick-item" bindtap="goBlindbox">
+      <view class="quick-icon">🎁</view>
+      <view>盲盒管理</view>
+    </view>
+  </view>
+
+  <view class="section-title">最近动态</view>
+  <view class="card">
+    <view wx:for="{{activities}}" wx:key="id" class="activity-row">
+      <view class="activity-icon">📌</view>
+      <view class="activity-info">
+        <view>{{item.title}}</view>
+        <view class="text-muted">{{item.time}}</view>
+      </view>
+    </view>
+  </view>
+</view>

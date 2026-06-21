@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="section-title">上传选择题图片</view>
+  <view class="card">
+    <view class="form-item">
+      <view class="form-label">科目</view>
+      <input class="form-input" placeholder="请输入科目" value="{{subject}}" bindinput="onInput" data-key="subject" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">作业标题</view>
+      <input class="form-input" placeholder="请输入作业标题" value="{{title}}" bindinput="onInput" data-key="title" />
+    </view>
+    <view class="form-item">
+      <view class="form-label">图片</view>
+      <view class="upload-area" bindtap="chooseImage">
+        <block wx:if="{{imageUrl}}">
+          <image src="{{imageUrl}}" mode="aspectFill" class="upload-img" />
+        </block>
+        <block wx:else>
+          <view class="upload-icon">+</view>
+          <view class="text-muted">点击选择图片</view>
+        </block>
+      </view>
+    </view>
+    <view class="form-item">
+      <view class="form-label">可见性</view>
+      <view class="radio-group">
+        <view class="radio-item {{visibility === 'public' ? 'active' : ''}}" bindtap="setVisibility" data-val="public">公开</view>
+        <view class="radio-item {{visibility === 'private' ? 'active' : ''}}" bindtap="setVisibility" data-val="private">私密</view>
+      </view>
+    </view>
+  </view>
+  <button class="btn-primary submit-btn" bindtap="submit">提交</button>
+</view>

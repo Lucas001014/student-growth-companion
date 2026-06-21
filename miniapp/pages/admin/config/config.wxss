@@ -1,0 +1,22 @@
+.config-page { padding: 24rpx; background: #f5f7fa; min-height: 100vh; }
+.section { background: #fff; border-radius: 16rpx; padding: 28rpx; margin-bottom: 24rpx; box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04); }
+.section-title { font-size: 30rpx; font-weight: 600; color: #1f2937; margin-bottom: 20rpx; }
+.rule-row { display: flex; align-items: center; padding: 20rpx 0; border-bottom: 2rpx solid #f3f4f6; }
+.rule-row:last-child { border-bottom: none; }
+.rule-info { flex: 1; }
+.rule-title { font-size: 28rpx; color: #374151; font-weight: 500; }
+.rule-desc { font-size: 24rpx; color: #6b7280; margin-top: 6rpx; }
+.rule-points { font-size: 28rpx; color: #10b981; font-weight: 600; margin-right: 16rpx; }
+.rarity-row { display: flex; align-items: center; padding: 20rpx 0; border-bottom: 2rpx solid #f3f4f6; }
+.rarity-row:last-child { border-bottom: none; }
+.rarity-tag { font-size: 22rpx; padding: 4rpx 14rpx; border-radius: 20rpx; margin-right: 16rpx; font-weight: 600; }
+.rarity-ssr { background: #fef3c7; color: #b45309; }
+.rarity-sr { background: #e0e7ff; color: #4338ca; }
+.rarity-r { background: #d1fae5; color: #047857; }
+.rarity-n { background: #e5e7eb; color: #374151; }
+.rarity-name { flex: 1; font-size: 28rpx; color: #374151; }
+.rarity-weight { font-size: 26rpx; color: #6b7280; }
+.config-row { display: flex; align-items: center; justify-content: space-between; padding: 18rpx 0; }
+.config-label { font-size: 28rpx; color: #374151; }
+.config-value { font-size: 28rpx; color: #6b7280; }
+.btn-save { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea, #409EFF); color: #fff; font-size: 30rpx; font-weight: 600; padding: 24rpx 0; border-radius: 48rpx; box-shadow: 0 8rpx 24rpx rgba(102,126,234,0.3); }

@@ -1,0 +1,34 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/student/index/index",
+    "pages/student/honor/honor",
+    "pages/student/skins/skins",
+    "pages/student/blindbox/blindbox",
+    "pages/student/ranking/ranking",
+    "pages/student/homework-show/homework-show",
+    "pages/student/requests/requests",
+    "pages/student/parent/confirm/confirm",
+    "pages/student/parent/upload/upload",
+    "pages/student/parent/history/history",
+    "pages/teacher/index/index",
+    "pages/teacher/students/students",
+    "pages/teacher/honor/honor",
+    "pages/teacher/approval/approval",
+    "pages/teacher/blindbox/blindbox",
+    "pages/admin/index/index",
+    "pages/admin/teachers/teachers",
+    "pages/admin/skins/skins",
+    "pages/admin/config/config"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#409EFF",
+    "navigationBarTitleText": "班级荣誉皮肤系统",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f7fa"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

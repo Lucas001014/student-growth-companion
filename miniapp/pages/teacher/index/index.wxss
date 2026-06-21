@@ -1,0 +1,95 @@
+.welcome-card { 
+  background: linear-gradient(135deg, rgba(96,165,250,0.15), rgba(123,44,247,0.1)); 
+  border: 1px solid rgba(96,165,250,0.2);
+  border-radius: 24rpx; 
+  padding: 40rpx; 
+  margin-bottom: 30rpx; 
+}
+
+.welcome-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #e2e8f0;
+}
+
+.welcome-sub {
+  font-size: 24rpx;
+  color: #64748b;
+  margin-top: 8rpx;
+}
+
+.welcome-stats { 
+  display: flex; 
+  justify-content: space-around; 
+  margin-top: 30rpx; 
+  padding-top: 30rpx; 
+  border-top: 1px solid rgba(255,255,255,0.06); 
+}
+
+.ws-item { 
+  text-align: center; 
+}
+
+.ws-num { 
+  font-size: 40rpx; 
+  font-weight: 700; 
+  color: #60a5fa;
+}
+
+.ws-label { 
+  font-size: 22rpx; 
+  color: #4a5568; 
+  margin-top: 4rpx; 
+}
+
+.quick-grid { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20rpx; 
+  margin-bottom: 30rpx; 
+}
+
+.quick-item { 
+  background: rgba(15,23,42,0.8); 
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16rpx; 
+  padding: 40rpx 20rpx; 
+  text-align: center; 
+  font-size: 28rpx; 
+  color: #94a3b8;
+}
+
+.quick-icon { 
+  font-size: 60rpx; 
+  margin-bottom: 12rpx; 
+}
+
+.activity-row { 
+  display: flex; 
+  padding: 20rpx 0; 
+  border-bottom: 1px solid rgba(255,255,255,0.04); 
+}
+
+.activity-row:last-child { 
+  border-bottom: none; 
+}
+
+.activity-icon { 
+  font-size: 36rpx; 
+  margin-right: 16rpx; 
+}
+
+.activity-info { 
+  flex: 1; 
+}
+
+.activity-text {
+  font-size: 28rpx;
+  color: #c8d6e5;
+}
+
+.activity-time {
+  font-size: 22rpx;
+  color: #4a5568;
+  margin-top: 6rpx;
+}

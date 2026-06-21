@@ -1,0 +1,9 @@
+.box-card { padding: 24rpx; }
+.box-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8rpx; }
+.box-title { font-size: 30rpx; font-weight: 600; }
+.box-action { display: flex; gap: 20rpx; margin-top: 20rpx; }
+.box-action button { flex: 1; border-radius: 12rpx !important; font-size: 28rpx; }
+.mt-btn { border-radius: 12rpx !important; margin-top: 20rpx !important; margin-bottom: 20rpx !important; }
+.record-row { display: flex; align-items: center; justify-content: space-between; padding: 20rpx 0; border-bottom: 2rpx solid #f3f4f6; }
+.record-row:last-child { border-bottom: none; }
+.empty { text-align: center; padding: 40rpx 0; color: #909399; font-size: 26rpx; }

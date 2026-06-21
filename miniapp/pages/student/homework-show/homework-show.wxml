@@ -1,0 +1,23 @@
+<view class="container">
+  <view class="filter-bar">
+    <view class="filter-item {{filter === 'all' ? 'active' : ''}}" bindtap="switchFilter" data-filter="all">全部</view>
+    <view class="filter-item {{filter === 'public' ? 'active' : ''}}" bindtap="switchFilter" data-filter="public">公开</view>
+    <view class="filter-item {{filter === 'private' ? 'active' : ''}}" bindtap="switchFilter" data-filter="private">私密</view>
+  </view>
+  <view wx:for="{{homeworkList}}" wx:key="id" class="card hw-card">
+    <view class="hw-header">
+      <view class="hw-title">{{item.title}}</view>
+      <view class="tag-{{item.rarity}}">{{item.rarity}}</view>
+    </view>
+    <view class="hw-meta">
+      <view class="text-muted">{{item.subject}} · {{item.studentName}}</view>
+      <view class="text-muted">{{item.time}}</view>
+    </view>
+    <image class="hw-image" src="{{item.imageUrl}}" mode="aspectFill" bindtap="previewImage" data-url="{{item.imageUrl}}" />
+    <view wx:if="{{item.description}}" class="hw-desc">{{item.description}}</view>
+    <view class="hw-tags">
+      <view wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this" class="hw-tag">{{tag}}</view>
+    </view>
+  </view>
+  <view wx:if="{{homeworkList.length === 0}}" class="empty">暂无作业</view>
+</view>

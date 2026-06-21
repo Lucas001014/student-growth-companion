@@ -1,0 +1,20 @@
+<view class="container">
+  <view class="tabs">
+    <view class="tab {{tab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">待审批 ({{pendingCount}})</view>
+    <view class="tab {{tab === 'done' ? 'active' : ''}}" bindtap="switchTab" data-tab="done">已审批</view>
+  </view>
+
+  <view wx:for="{{list}}" wx:key="id" class="card appr-card">
+    <view class="appr-header">
+      <view class="appr-title">{{item.title}}</view>
+      <view class="status status-{{item.status}}">{{item.statusText}}</view>
+    </view>
+    <view class="text-muted">{{item.type}} · {{item.student}} · {{item.time}}</view>
+    <view class="appr-desc">{{item.description}}</view>
+    <view wx:if="{{tab === 'pending'}}" class="appr-action">
+      <button class="btn-danger" bindtap="reject" data-id="{{item.id}}">拒绝</button>
+      <button class="btn-success" bindtap="approve" data-id="{{item.id}}">通过</button>
+    </view>
+  </view>
+  <view wx:if="{{list.length === 0}}" class="card empty">暂无数据</view>
+</view>

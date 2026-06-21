@@ -1,0 +1,41 @@
+<view class="container">
+  <view class="section-title">基础积分规则</view>
+  <view class="card">
+    <view wx:for="{{basicRules}}" wx:key="id" class="rule-row">
+      <view class="rule-info">
+        <view class="rule-title">{{item.title}}</view>
+        <view class="text-muted">{{item.description}}</view>
+      </view>
+      <view class="rule-pts">{{item.points}}</view>
+      <button size="mini" class="btn-primary" bindtap="editRule" catchtap="editRule" data-id="{{item.id}}">编辑</button>
+    </view>
+  </view>
+
+  <view class="section-title">稀有度权重配置</view>
+  <view class="card">
+    <view wx:for="{{rarityConfig}}" wx:key="id" class="rule-row">
+      <view class="rule-info">
+        <view class="rule-title">{{item.name}}</view>
+        <view class="text-muted">权重：{{item.weight}}%</view>
+      </view>
+      <view class="tag-{{item.tag}}">{{item.tag}}</view>
+    </view>
+  </view>
+
+  <view class="section-title">高级配置</view>
+  <view class="card">
+    <view class="config-row">
+      <view class="config-label">盲盒基础积分</view>
+      <input class="config-input" type="digit" value="{{boxCost}}" bindinput="onInput" data-key="boxCost" />
+    </view>
+    <view class="config-row">
+      <view class="config-label">每周积分上限</view>
+      <input class="config-input" type="digit" value="{{weeklyLimit}}" bindinput="onInput" data-key="weeklyLimit" />
+    </view>
+    <view class="config-row">
+      <view class="config-label">家长模式密码</view>
+      <input class="config-input" password value="{{parentPassword}}" bindinput="onInput" data-key="parentPassword" />
+    </view>
+  </view>
+  <button class="btn-primary save-btn" bindtap="save">保存配置</button>
+</view>

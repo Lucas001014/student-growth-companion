@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="top-three">
+    <view wx:for="{{topThree}}" wx:key="id" class="top-item">
+      <view class="top-rank">{{item.rank}}</view>
+      <image class="avatar" src="{{item.avatar}}" mode="aspectFill" />
+      <view class="top-name">{{item.name}}</view>
+      <view class="top-points">{{item.points}} 分</view>
+    </view>
+  </view>
+  <view class="section-title">班级排名</view>
+  <view class="card">
+    <view class="rank-row rank-header">
+      <view style="width: 80rpx;">名次</view>
+      <view style="flex: 1;">姓名</view>
+      <view style="width: 160rpx; text-align: right;">积分</view>
+    </view>
+    <view wx:for="{{rankList}}" wx:key="id" class="rank-row {{item.isMe ? 'me-row' : ''}}">
+      <view style="width: 80rpx; font-weight: bold;">{{item.rank}}</view>
+      <view style="flex: 1;">
+        <view>{{item.name}}</view>
+        <view wx:if="{{item.isMe}}" class="me-tag">我</view>
+      </view>
+      <view style="width: 160rpx; text-align: right; color: #409EFF; font-weight: 500;">{{item.points}}</view>
+    </view>
+  </view>
+</view>

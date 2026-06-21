@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="section-title">待确认作业</view>
+  <view wx:for="{{todoList}}" wx:key="id" class="card todo-card">
+    <view class="todo-header">
+      <view class="todo-title">{{item.title}}</view>
+      <view class="tag-ssr">待确认</view>
+    </view>
+    <view class="text-muted">{{item.subject}} · 提交时间 {{item.time}}</view>
+    <image class="todo-image" src="{{item.imageUrl}}" mode="aspectFill" />
+    <view class="todo-action">
+      <button class="btn-danger" bindtap="reject" data-id="{{item.id}}">驳回</button>
+      <button class="btn-success" bindtap="confirm" data-id="{{item.id}}">确认</button>
+    </view>
+  </view>
+  <view wx:if="{{todoList.length === 0}}" class="card empty">暂无待确认作业</view>
+  <button class="btn-primary mt-btn" bindtap="goUpload">上传选择题</button>
+  <button class="btn-primary mt-btn" bindtap="goHistory">查看确认历史</button>
+</view>
