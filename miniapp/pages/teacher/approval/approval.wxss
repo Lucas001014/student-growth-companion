@@ -1,14 +1,108 @@
-.tabs { display: flex; background: #fff; border-radius: 16rpx; padding: 8rpx; margin-bottom: 20rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06); }
-.tab { flex: 1; text-align: center; padding: 16rpx 0; font-size: 26rpx; color: #6b7280; border-radius: 12rpx; }
-.tab.active { background: #409EFF; color: #fff; font-weight: 600; }
-.appr-card { padding: 24rpx; }
-.appr-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8rpx; }
-.appr-title { font-size: 30rpx; font-weight: 600; }
-.appr-desc { margin-top: 16rpx; font-size: 26rpx; color: #4b5563; background: #f9fafb; padding: 16rpx; border-radius: 8rpx; line-height: 1.5; }
-.appr-action { display: flex; gap: 20rpx; margin-top: 20rpx; }
-.appr-action button { flex: 1; border-radius: 12rpx !important; font-size: 28rpx; }
-.status { font-size: 24rpx; padding: 6rpx 16rpx; border-radius: 20rpx; }
-.status-pending { background: #fef3c7; color: #92400e; }
-.status-approved { background: #d1fae5; color: #065f46; }
-.status-rejected { background: #fee2e2; color: #991b1b; }
-.empty { text-align: center; padding: 60rpx 0; color: #909399; font-size: 26rpx; }
+.container { 
+  padding: 24rpx 24rpx 80rpx 24rpx; 
+  background: #fff7ed; 
+  min-height: 100vh;
+}
+
+/* Tab 样式 */
+.tabs { 
+  display: flex; 
+  background: #ffffff; 
+  border-radius: 20rpx; 
+  padding: 10rpx; 
+  margin-bottom: 20rpx; 
+  box-shadow: 0 2rpx 12rpx rgba(120,53,15,0.05); 
+}
+
+.tab { 
+  flex: 1; 
+  text-align: center; 
+  padding: 20rpx 0; 
+  font-size: 26rpx; 
+  color: #64748b; 
+  border-radius: 14rpx; 
+  font-weight: 500;
+}
+
+.tab.active { 
+  background: linear-gradient(135deg, #fb923c, #f97316); 
+  color: #ffffff; 
+  font-weight: 600; 
+  box-shadow: 0 4rpx 12rpx rgba(249,115,22,0.25);
+}
+
+/* 审批卡片 */
+.appr-card { 
+  padding: 24rpx; 
+  background: #ffffff;
+  border-radius: 20rpx;
+  margin-bottom: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(120,53,15,0.04);
+}
+
+.appr-header { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  margin-bottom: 8rpx; 
+}
+
+.appr-title { 
+  font-size: 30rpx; 
+  font-weight: 600; 
+  color: #1c1917;
+}
+
+.appr-desc { 
+  margin-top: 16rpx; 
+  font-size: 26rpx; 
+  color: #57534e; 
+  background: #fff7ed; 
+  padding: 16rpx; 
+  border-radius: 12rpx; 
+  line-height: 1.6;
+}
+
+.appr-action { 
+  display: flex; 
+  gap: 20rpx; 
+  margin-top: 20rpx; 
+}
+
+.appr-action button { 
+  flex: 1; 
+  border-radius: 12rpx !important; 
+  font-size: 28rpx; 
+  font-weight: 500 !important;
+}
+
+/* 状态标签 */
+.status { 
+  font-size: 24rpx; 
+  padding: 8rpx 20rpx; 
+  border-radius: 20rpx; 
+  font-weight: 500;
+}
+
+.status-pending { 
+  background: #fef3c7; 
+  color: #92400e; 
+}
+
+.status-approved { 
+  background: #dcfce7; 
+  color: #166534; 
+}
+
+.status-rejected { 
+  background: #fee2e2; 
+  color: #991b1b; 
+}
+
+/* 空状态 */
+.empty { 
+  text-align: center; 
+  padding: 60rpx 0; 
+  color: #94a3b8; 
+  font-size: 26rpx; 
+}

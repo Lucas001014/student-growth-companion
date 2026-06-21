@@ -1,393 +1,411 @@
 <template>
   <div class="teacher-layout">
-    <aside class="sidebar" :class="{ collapsed: sidebarOpen === false }">
-      <div class="sidebar-header">
-        <div class="brand-logo">
-          <span class="logo-icon">📚</span>
-          <span class="logo-text" v-if="sidebarOpen">成长陪伴</span>
+    <el-container>
+      <!-- 左侧侧边栏 -->
+      <el-aside width="240px" class="sidebar">
+        <div class="logo-box">
+          <div class="logo-icon orange">👩‍🏫</div>
+          <div class="logo-text">
+            <div class="logo-title">成长陪伴</div>
+            <div class="logo-sub">教师端</div>
+          </div>
         </div>
-        <button class="collapse-btn" @click="toggleSidebar">
-          <span>{{ sidebarOpen ? '◀' : '▶' }}</span>
-        </button>
-      </div>
 
-      <el-menu :default-active="activeMenu" mode="vertical" class="sidebar-menu">
-        <div class="menu-section">
-          <span class="section-label">工作台</span>
+        <el-menu
+          :default-active="activeMenu"
+          class="side-menu"
+          @select="handleMenuSelect"
+          background-color="transparent"
+          text-color="#475569"
+          active-text-color="#f97316"
+          router
+        >
           <el-menu-item index="/teacher/dashboard">
-            <span slot="icon">📊</span>
-            <span>班级看板</span>
+            <span class="menu-icon">📊</span>
+            <span>工作台</span>
           </el-menu-item>
-          <el-menu-item index="/teacher/approval">
-            <span slot="icon">✓</span>
-            <span>审批中心</span>
+          <el-menu-item index="/teacher/honor-walls">
+            <span class="menu-icon">🏆</span>
+            <span>荣誉墙管理</span>
           </el-menu-item>
-          <el-menu-item index="/teacher/homework">
-            <span slot="icon">📝</span>
-            <span>作业管理</span>
+          <el-menu-item index="/teacher/blind-box">
+            <span class="menu-icon">🎁</span>
+            <span>盲盒管理</span>
           </el-menu-item>
-        </div>
-
-        <div class="menu-section">
-          <span class="section-label">学生管理</span>
           <el-menu-item index="/teacher/students">
-            <span slot="icon">👨‍🎓</span>
-            <span>学生列表</span>
+            <span class="menu-icon">👨‍🎓</span>
+            <span>学生管理</span>
           </el-menu-item>
-          <el-menu-item index="/teacher/ranking">
-            <span slot="icon">🏆</span>
-            <span>成长排行</span>
+          <el-menu-item index="/teacher/reports">
+            <span class="menu-icon">📋</span>
+            <span>数据报告</span>
           </el-menu-item>
-          <el-menu-item index="/teacher/honor">
-            <span slot="icon">🎁</span>
-            <span>奖励发放</span>
-          </el-menu-item>
-        </div>
+        </el-menu>
 
-        <div class="menu-section">
-          <span class="section-label">系统</span>
-          <el-menu-item index="/teacher/settings">
-            <span slot="icon">⚙️</span>
-            <span>班级设置</span>
-          </el-menu-item>
-        </div>
-      </el-menu>
-
-      <div class="sidebar-footer">
-        <div class="user-info" v-if="sidebarOpen">
-          <span class="user-icon">👩‍🏫</span>
-          <div class="user-detail">
-            <div class="user-name">{{ auth.user?.name || '教师' }}</div>
-            <div class="user-role">{{ auth.user?.className || '教师' }}</div>
-          </div>
-        </div>
-        <button class="logout-btn" @click="handleLogout">
-          <span>🚪</span>
-          <span v-if="sidebarOpen">退出</span>
-        </button>
-      </div>
-    </aside>
-
-    <main class="main-content">
-      <header class="page-header">
-        <div class="header-left">
-          <div class="page-breadcrumb">
-            <span class="breadcrumb-item">教师工作台</span>
-            <span class="breadcrumb-arrow">›</span>
-            <span class="breadcrumb-item active">{{ currentTitle }}</span>
-          </div>
-        </div>
-        <div class="header-right">
-          <div class="header-stats">
-            <div class="stat-item">
-              <span class="stat-value">{{ statData.students }}</span>
-              <span class="stat-label">学生数</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-value">{{ statData.points }}</span>
-              <span class="stat-label">总积分</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-value">{{ statData.requests }}</span>
-              <span class="stat-label">待审批</span>
+        <div class="sidebar-footer">
+          <div class="teacher-card">
+            <div class="teacher-avatar">👩‍🏫</div>
+            <div class="teacher-info">
+              <div class="teacher-name">{{ teacherInfo?.name || '老师' }}</div>
+              <div class="teacher-meta">{{ teacherInfo?.className || '班级管理' }}</div>
             </div>
           </div>
         </div>
-      </header>
+      </el-aside>
 
-      <div class="content-area">
-        <router-view />
-      </div>
-    </main>
+      <!-- 右侧内容区 -->
+      <el-container class="main-container">
+        <el-header class="top-header">
+          <div class="header-left">
+            <span class="page-title">{{ currentPageTitle }}</span>
+          </div>
+          <div class="header-right">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" placeholder="搜索..." class="search-input" />
+            </div>
+            <el-badge :value="5" class="header-badge">
+              <button class="icon-btn">🔔</button>
+            </el-badge>
+            <el-dropdown>
+              <div class="user-info">
+                <div class="user-avatar-small orange">👩‍🏫</div>
+                <div class="user-text">
+                  <div class="user-name">{{ teacherInfo?.name || '老师' }}</div>
+                  <div class="user-role">教师</div>
+                </div>
+              </div>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </div>
+        </el-header>
+
+        <el-main class="content-main">
+          <router-view />
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { useAuthStore } from '../../stores/auth';
-import { ElMessage } from 'element-plus';
+import { computed, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const router = useRouter();
 const route = useRoute();
-const auth = useAuthStore();
+const router = useRouter();
 
-const sidebarOpen = ref(true);
-const activeMenu = ref('');
-
-const statData = ref({ students: 45, points: 8850, requests: 3 });
-
-const currentTitle = computed(() => {
-  const titles: Record<string, string> = {
-    '/teacher/dashboard': '班级看板',
-    '/teacher/approval': '审批中心',
-    '/teacher/homework': '作业管理',
-    '/teacher/students': '学生列表',
-    '/teacher/ranking': '成长排行',
-    '/teacher/honor': '奖励发放',
-    '/teacher/settings': '班级设置'
-  };
-  return titles[route.path] || '教师工作台';
+const teacherInfo = computed(() => {
+  const raw = localStorage.getItem('teacherInfo') || sessionStorage.getItem('teacherInfo');
+  return raw ? JSON.parse(raw) : null;
 });
 
-const toggleSidebar = () => {
-  sidebarOpen.value = !sidebarOpen.value;
+const activeMenu = ref(route.path);
+
+const currentPageTitle = computed(() => {
+  const titles: Record<string, string> = {
+    '/teacher/dashboard': '工作台',
+    '/teacher/honor-walls': '荣誉墙管理',
+    '/teacher/blind-box': '盲盒管理',
+    '/teacher/students': '学生管理',
+    '/teacher/reports': '数据报告',
+  };
+  return titles[route.path] || '学生成长陪伴';
+});
+
+const handleMenuSelect = (index: string) => {
+  activeMenu.value = index;
 };
 
 const handleLogout = () => {
-  localStorage.clear();
-  auth.$reset();
+  localStorage.removeItem('auth');
+  localStorage.removeItem('teacherInfo');
+  sessionStorage.removeItem('auth');
   router.push('/login');
-  ElMessage.success('已退出登录');
 };
-
-const handleRouteChange = () => {
-  activeMenu.value = route.path;
-};
-
-onMounted(() => {
-  activeMenu.value = route.path;
-  router.afterEach(handleRouteChange);
-});
-
-onUnmounted(() => {
-  router.afterEach(() => {});
-});
 </script>
 
 <style scoped>
 .teacher-layout {
-  display: flex;
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: #fff7ed;
 }
 
+/* 侧边栏 */
 .sidebar {
-  width: 220px;
-  background: linear-gradient(180deg, #ffffff 0%, #eff6ff 100%);
-  border-right: 1px solid var(--border-light);
-  transition: width 0.3s ease;
+  background: linear-gradient(180deg, #ffffff 0%, #fff7ed 100%);
+  border-right: 1px solid #fed7aa;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+  padding: 0;
 }
 
-.sidebar.collapsed {
-  width: 68px;
-}
-
-.sidebar-header {
-  padding: 20px 16px;
+.logo-box {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 12px;
+  padding: 24px 20px;
+  border-bottom: 1px solid #fed7aa;
+  margin-bottom: 16px;
 }
 
 .logo-icon {
-  font-size: 32px;
-}
-
-.logo-text {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--accent-blue);
-  white-space: nowrap;
-}
-
-.collapse-btn {
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: rgba(96, 165, 250, 0.1);
-  border-radius: 8px;
-  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  color: var(--accent-blue);
-  transition: all 0.2s;
+  font-size: 22px;
 }
 
-.collapse-btn:hover {
-  background: rgba(96, 165, 250, 0.2);
+.logo-icon.orange {
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25);
 }
 
-.sidebar-menu {
-  flex: 1;
-  padding: 12px 0;
+.logo-text .logo-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
 }
 
-.menu-section {
-  margin-bottom: 20px;
-}
-
-.section-label {
-  display: block;
-  padding: 8px 24px;
+.logo-text .logo-sub {
   font-size: 11px;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: #64748b;
+  margin-top: 2px;
 }
 
-.sidebar-menu :deep(.el-menu-item) {
-  height: 44px;
-  line-height: 44px;
-  margin: 4px 8px;
+.side-menu {
+  flex: 1;
+  border-right: none;
+  padding: 0 12px;
+}
+
+.side-menu :deep(.el-menu-item) {
   border-radius: 10px;
+  height: 48px;
+  line-height: 48px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 16px !important;
+  display: flex;
+  align-items: center;
 }
 
-.sidebar-menu :deep(.el-menu-item.is-active) {
-  background: linear-gradient(135deg, rgba(96, 165, 250, 0.1), rgba(59, 130, 246, 0.05));
-  color: var(--accent-blue);
+.side-menu :deep(.el-menu-item:hover) {
+  background-color: #fff7ed;
 }
 
-.sidebar-menu :deep(.el-menu-item:hover) {
-  background: rgba(96, 165, 250, 0.06);
+.side-menu :deep(.el-menu-item.is-active) {
+  background: linear-gradient(135deg, #ffedd5 0%, #fef3c7 100%);
+  color: #f97316;
+}
+
+.menu-icon {
+  margin-right: 12px;
+  font-size: 18px;
 }
 
 .sidebar-footer {
   padding: 16px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid #fed7aa;
+}
+
+.teacher-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #ffedd5 0%, #fef3c7 100%);
+  border-radius: 14px;
+  border: 1px solid #fed7aa;
+}
+
+.teacher-avatar {
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.teacher-info .teacher-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 2px;
+}
+
+.teacher-info .teacher-meta {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* 主内容区 */
+.main-container {
+  height: 100vh;
+}
+
+.top-header {
+  background: #ffffff;
+  border-bottom: 1px solid #fed7aa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 68px;
+}
+
+.header-left .page-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  padding: 8px 14px;
+  width: 220px;
+  transition: all 0.2s ease;
+}
+
+.search-box:focus-within {
+  background: #ffffff;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 4px rgba(251, 146, 60, 0.1);
+}
+
+.search-icon {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #fff7ed;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #fed7aa;
+}
+
+.header-badge {
+  margin: 0;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
-  background: rgba(96, 165, 250, 0.06);
-  border-radius: 12px;
-  margin-bottom: 12px;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 999px;
+  background: #fff7ed;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.user-icon {
-  font-size: 32px;
+.user-info:hover {
+  background: #fed7aa;
 }
 
-.user-detail {
-  flex: 1;
-  min-width: 0;
-}
-
-.user-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.user-role {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.logout-btn {
-  width: 100%;
+.user-avatar-small {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px;
-  border: none;
-  background: rgba(239, 68, 68, 0.08);
-  border-radius: 10px;
-  color: var(--danger-color);
-  font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
+  font-size: 16px;
+  color: #ffffff;
 }
 
-.logout-btn:hover {
-  background: rgba(239, 68, 68, 0.15);
+.user-avatar-small.orange {
+  background: linear-gradient(135deg, #fb923c 0%, #f97316 100%);
 }
 
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 24px;
-  background: #ffffff;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.page-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.breadcrumb-item {
-  color: var(--text-secondary);
-}
-
-.breadcrumb-item.active {
-  color: var(--accent-blue);
+.user-text .user-name {
+  font-size: 13px;
   font-weight: 600;
+  color: #0f172a;
+  line-height: 1.2;
 }
 
-.breadcrumb-arrow {
-  color: var(--text-muted);
+.user-text .user-role {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
 }
 
-.header-stats {
-  display: flex;
-  gap: 32px;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-value {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--accent-blue);
-}
-
-.stat-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.content-area {
-  flex: 1;
-  padding: 24px;
+.content-main {
+  padding: 28px 32px;
+  background: #fff7ed;
   overflow-y: auto;
 }
 
-@media (max-width: 768px) {
+.content-main :deep(.el-breadcrumb__inner) {
+  color: #64748b !important;
+  font-size: 13px !important;
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
   .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    z-index: 100;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
+    width: 72px !important;
   }
-  .sidebar.collapsed {
-    transform: translateX(-100%);
+  .logo-text,
+  .teacher-info,
+  .side-menu :deep(.el-menu-item span:not(.menu-icon)) {
+    display: none;
+  }
+  .top-header {
+    padding: 0 16px;
+  }
+  .content-main {
+    padding: 20px 16px;
   }
 }
 </style>

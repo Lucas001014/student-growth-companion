@@ -23,10 +23,10 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#409EFF",
-    "navigationBarTitleText": "班级荣誉皮肤系统",
+    "navigationBarBackgroundColor": "#2563eb",
+    "navigationBarTitleText": "学生成长陪伴",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#f5f7fa"
+    "backgroundColor": "#f1f5f9"
   },
   "style": "v2",
   "lazyCodeLoading": "requiredComponents",

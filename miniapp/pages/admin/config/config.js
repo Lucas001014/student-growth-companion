@@ -1,4 +1,11 @@
-const util = require('../../../utils/util.js');
+function ph(color, label) {
+  var svg =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1" viewBox="0 0 1 1"></svg>';
+  return '';
+}
+
+var util = require('../../../utils/util.js');
+
 Page({
   data: {
     basicRules: [
@@ -17,10 +24,17 @@ Page({
     weeklyLimit: 100,
     parentPassword: ''
   },
-  onInput(e) {
-    const key = e.currentTarget.dataset.key;
-    this.setData({ [key]: e.detail.value });
+  onInput: function (e) {
+    var key = e.currentTarget.dataset.key;
+    var value = e.detail.value;
+    var obj = {};
+    obj[key] = value;
+    this.setData(obj);
   },
-  editRule(e) { util.showToast('编辑规则 #' + e.currentTarget.dataset.id); },
-  save() { util.showToast('配置已保存', 'success'); }
+  editRule: function (e) {
+    try { wx.showToast({ title: '编辑规则 #' + e.currentTarget.dataset.id, icon: 'none' }); } catch (err) {}
+  },
+  save: function () {
+    try { wx.showToast({ title: '配置已保存', icon: 'success' }); } catch (e) {}
+  }
 });

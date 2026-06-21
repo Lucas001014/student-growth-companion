@@ -1,21 +1,46 @@
 <view class="login-wrap">
+  <view class="decor-circle decor-1"></view>
+  <view class="decor-circle decor-2"></view>
+  <view class="decor-dots"></view>
+
   <view class="login-card">
-    <view class="logo">🏆</view>
-    <view class="title">班级荣誉皮肤系统</view>
-    <view class="subtitle">Class Honor Skin System</view>
-    <view class="tabs">
-      <view class="tab {{tab === 'student' ? 'active' : ''}}" bindtap="switchTab" data-tab="student">学生</view>
-      <view class="tab {{tab === 'teacher' ? 'active' : ''}}" bindtap="switchTab" data-tab="teacher">教师</view>
-      <view class="tab {{tab === 'admin' ? 'active' : ''}}" bindtap="switchTab" data-tab="admin">管理员</view>
+    <view class="logo-box">
+      <view class="logo">📚</view>
     </view>
+    <view class="title">学生成长陪伴</view>
+    <view class="subtitle">Student Growth Companion</view>
+    <view class="welcome-tip">✨ 记录每一次进步 · 陪伴每一段成长</view>
+
+    <view class="tabs">
+      <view class="tab {{tab === 'student' ? 'active' : ''}}" bindtap="switchTab" data-tab="student">
+        <text class="tab-icon">👨‍🎓</text>
+        <text class="tab-text">学生</text>
+      </view>
+      <view class="tab {{tab === 'teacher' ? 'active' : ''}}" bindtap="switchTab" data-tab="teacher">
+        <text class="tab-icon">👩‍🏫</text>
+        <text class="tab-text">教师</text>
+      </view>
+      <view class="tab {{tab === 'admin' ? 'active' : ''}}" bindtap="switchTab" data-tab="admin">
+        <text class="tab-icon">👔</text>
+        <text class="tab-text">管理</text>
+      </view>
+    </view>
+
     <block wx:if="{{tab === 'student'}}">
-      <input class="input" placeholder="学号" value="{{studentNo}}" bindinput="onInput" data-key="studentNo" />
+      <input class="input" placeholder="请输入学号" value="{{studentNo}}" bindinput="onInput" data-key="studentNo" />
       <input class="input" placeholder="班级验证码" value="{{classVerifyCode}}" bindinput="onInput" data-key="classVerifyCode" />
     </block>
     <block wx:else>
-      <input class="input" placeholder="手机号" value="{{phone}}" bindinput="onInput" data-key="phone" />
-      <input class="input" placeholder="密码" password value="{{password}}" bindinput="onInput" data-key="password" />
+      <input class="input" placeholder="请输入手机号" value="{{phone}}" bindinput="onInput" data-key="phone" />
+      <input class="input" placeholder="请输入密码" password value="{{password}}" bindinput="onInput" data-key="password" />
     </block>
-    <button class="submit" bindtap="onSubmit">登 录</button>
+
+    <button class="submit {{tab === 'teacher' ? 'submit-orange' : tab === 'admin' ? 'submit-purple' : 'submit-blue'}}" bindtap="onSubmit">
+      <text wx:if="{{tab === 'student'}}">开始学习 🚀</text>
+      <text wx:elif="{{tab === 'teacher'}}">进入工作台 →</text>
+      <text wx:else>进入管理后台 →</text>
+    </button>
   </view>
+
+  <view class="footer-text">© 2026 学生成长陪伴系统</view>
 </view>

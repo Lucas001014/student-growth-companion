@@ -1,80 +1,119 @@
+.container { 
+  padding: 24rpx 24rpx 80rpx 24rpx; 
+  background: #faf5ff; 
+  min-height: 100vh;
+}
+
+/* 欢迎卡片 */
 .welcome-card { 
-  background: linear-gradient(135deg, rgba(0,245,212,0.15), rgba(123,44,247,0.1)); 
-  border: 1px solid rgba(0,245,212,0.2);
-  border-radius: 24rpx; 
-  padding: 40rpx; 
-  margin-bottom: 30rpx; 
+  background: linear-gradient(135deg, #ede9fe 0%, #e9d5ff 100%); 
+  border-radius: 28rpx; 
+  padding: 36rpx; 
+  margin-bottom: 28rpx; 
+  box-shadow: 0 4rpx 16rpx rgba(124,58,237,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-card::before {
+  content: '⚡';
+  position: absolute;
+  top: 24rpx;
+  right: 28rpx;
+  font-size: 48rpx;
+  opacity: 0.3;
 }
 
 .welcome-title {
-  font-size: 32rpx;
-  font-weight: 600;
-  color: #e2e8f0;
+  font-size: 28rpx;
+  color: #6b21a8;
+  font-weight: 500;
 }
 
 .welcome-sub {
-  font-size: 24rpx;
-  color: #64748b;
+  font-size: 40rpx;
+  color: #581c87;
+  font-weight: 700;
   margin-top: 8rpx;
 }
 
+/* 统计网格 */
 .stats-grid { 
   display: grid; 
   grid-template-columns: repeat(2, 1fr); 
-  gap: 20rpx; 
-  margin-top: 30rpx; 
-  padding-top: 30rpx; 
-  border-top: 1px solid rgba(255,255,255,0.06); 
+  gap: 16rpx; 
+  margin-top: 28rpx; 
+  padding-top: 28rpx; 
+  border-top: 2rpx solid rgba(255,255,255,0.5); 
 }
 
 .stat-item { 
   text-align: center; 
-  background: rgba(0,245,212,0.08); 
-  padding: 20rpx; 
-  border-radius: 12rpx; 
-  border: 1px solid rgba(0,245,212,0.1);
+  padding: 20rpx 12rpx; 
+  background: rgba(255,255,255,0.7); 
+  border-radius: 16rpx; 
 }
 
 .stat-num { 
   font-size: 40rpx; 
   font-weight: 700; 
-  color: #00f5d4;
+  color: #7c3aed;
+  line-height: 1.1;
 }
 
 .stat-label { 
   font-size: 22rpx; 
-  color: #4a5568; 
-  margin-top: 4rpx; 
+  color: #6b21a8; 
+  margin-top: 6rpx; 
 }
 
+.section-title { 
+  font-size: 30rpx; 
+  font-weight: 700; 
+  color: #1e1b4b; 
+  margin: 28rpx 0 18rpx 4rpx; 
+}
+
+/* 快捷操作 */
 .quick-grid { 
   display: grid; 
   grid-template-columns: repeat(2, 1fr); 
-  gap: 20rpx; 
-  margin-bottom: 30rpx; 
+  gap: 16rpx; 
+  margin-bottom: 20rpx; 
 }
 
 .quick-item { 
-  background: rgba(15,23,42,0.8); 
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16rpx; 
-  padding: 40rpx 20rpx; 
+  background: #ffffff; 
+  border-radius: 20rpx; 
+  padding: 36rpx 20rpx; 
   text-align: center; 
-  font-size: 28rpx; 
-  color: #94a3b8;
+  font-size: 26rpx; 
+  color: #4c1d95;
+  box-shadow: 0 2rpx 8rpx rgba(88,28,135,0.05);
+  font-weight: 500;
 }
 
 .quick-icon { 
-  font-size: 60rpx; 
+  font-size: 56rpx; 
   margin-bottom: 12rpx; 
+}
+
+/* 系统概览 */
+.card { 
+  background: #ffffff; 
+  border-radius: 20rpx; 
+  padding: 12rpx 28rpx; 
+  box-shadow: 0 2rpx 8rpx rgba(88,28,135,0.04);
 }
 
 .overview-row { 
   display: flex; 
   justify-content: space-between; 
-  padding: 20rpx 0; 
-  border-bottom: 1px solid rgba(255,255,255,0.04); 
+  align-items: center;
+  padding: 22rpx 0; 
+  border-bottom: 1px solid #f3e8ff; 
   font-size: 28rpx; 
+  color: #4c1d95;
 }
 
 .overview-row:last-child { 
@@ -82,10 +121,11 @@
 }
 
 .overview-label {
-  color: #64748b;
+  color: #581c87;
+  font-size: 26rpx;
 }
 
 .overview-value {
-  color: #e2e8f0;
-  font-weight: 500;
+  font-size: 28rpx;
+  font-weight: 600;
 }

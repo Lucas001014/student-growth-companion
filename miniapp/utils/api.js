@@ -1,8 +1,40 @@
 // 班级荣誉皮肤系统 - 小程序 API 层（纯演示模式，不依赖后端）
-// 如需接入真实后端，请把下面 MOCK_MODE 改为 false 并填写 BASE
+// 重要：所有图片采用本地 SVG 色块占位，避免请求外部网络导致的 WAServiceMainContext timeout
 
-var MOCK_MODE = true; // 演示模式开关：true = 纯前端模拟，不发任何网络请求
-var BASE = '';        // 示例：'https://your-domain.com/api'
+var MOCK_MODE = true;
+var BASE = '';
+
+// 生成 SVG 占位色块（不需要任何网络请求，本地解析）
+// color: 十六进制颜色（不含 #）；label: 显示在色块上的简短文本
+function placeholder(color, label) {
+  // 简单的 SVG: 400x240 圆角矩形 + 文字
+  var svg =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">' +
+      '<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">' +
+        '<stop offset="0%" stop-color="#' + color + '" stop-opacity="0.95"/>' +
+        '<stop offset="100%" stop-color="#' + color + '" stop-opacity="0.7"/>' +
+      '</linearGradient></defs>' +
+      '<rect width="400" height="240" rx="20" fill="url(#g)"/>' +
+      '<text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" ' +
+        'font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="40" fill="#ffffff" font-weight="bold">' +
+        label + '</text>' +
+    '</svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+
+// 预定义颜色（学生成长陪伴主题：蓝/绿/橙/紫 清新组合）
+var COLORS = {
+  primary: placeholder('2563eb', '皮肤'),
+  success: placeholder('22c55e', '皮肤'),
+  warning: placeholder('f59e0b', '皮肤'),
+  danger:  placeholder('ef4444', '皮肤'),
+  purple:  placeholder('a855f7', '皮肤'),
+  orange:  placeholder('fb923c', '皮肤'),
+  sky:     placeholder('38bdf8', '皮肤'),
+  homework: placeholder('0ea5e9', '作业'),
+  avatar:  placeholder('e2e8f0', '头像'),
+  skin:    placeholder('6366f1', '皮肤')
+};
 
 var MOCK_STUDENTS = [
   { id: 1, studentNo: '2024001', name: '张小明', points: 380, identity: '学习委员' },
@@ -13,11 +45,11 @@ var MOCK_STUDENTS = [
 ];
 
 var MOCK_SKINS = [
-  { id: 1, name: '星空战士', rarity: 'SSR', imageUrl: 'https://picsum.photos/300/300?random=1' },
-  { id: 2, name: '海洋之心', rarity: 'SR', imageUrl: 'https://picsum.photos/300/300?random=2' },
-  { id: 3, name: '森林守卫', rarity: 'R', imageUrl: 'https://picsum.photos/300/300?random=3' },
-  { id: 4, name: '火焰骑士', rarity: 'N', imageUrl: 'https://picsum.photos/300/300?random=4' },
-  { id: 5, name: '冰雪女王', rarity: 'SSR', imageUrl: 'https://picsum.photos/300/300?random=5' }
+  { id: 1, name: '星空战士', rarity: 'SSR', imageUrl: placeholder('6366f1', '星空') },
+  { id: 2, name: '海洋之心', rarity: 'SR',  imageUrl: placeholder('0ea5e9', '海洋') },
+  { id: 3, name: '森林守卫', rarity: 'R',   imageUrl: placeholder('22c55e', '森林') },
+  { id: 4, name: '火焰骑士', rarity: 'N',   imageUrl: placeholder('ef4444', '火焰') },
+  { id: 5, name: '冰雪女王', rarity: 'SSR', imageUrl: placeholder('a855f7', '冰雪') }
 ];
 
 var MOCK_TITLES = [
@@ -52,12 +84,8 @@ function ok(data) { return { code: 200, message: 'ok', data: data }; }
 function buildMock(url, data) {
   if (url.indexOf('/auth/login') >= 0) {
     var role = (data && data.role) || 'student';
-    if (role === 'student') {
-      return ok({ token: 'mock-student', user: { id: 1, role: 'student', name: '张小明', studentNo: '2024001', identity: '学习委员', points: 380 } });
-    }
-    if (role === 'teacher') {
-      return ok({ token: 'mock-teacher', user: { id: 99, role: 'teacher', name: '李老师', phone: '13800000000' } });
-    }
+    if (role === 'student') return ok({ token: 'mock-student', user: { id: 1, role: 'student', name: '张小明', studentNo: '2024001', identity: '学习委员', points: 380 } });
+    if (role === 'teacher') return ok({ token: 'mock-teacher', user: { id: 99, role: 'teacher', name: '李老师', phone: '13800000000' } });
     return ok({ token: 'mock-admin', user: { id: 100, role: 'admin', name: '系统管理员', phone: '13900000000' } });
   }
   if (url.indexOf('/auth/mode/switch') >= 0) return ok({ mode: 'parent' });
@@ -83,15 +111,11 @@ function buildMock(url, data) {
 }
 
 function request(url, method, data) {
-  if (MOCK_MODE) {
-    // 纯演示模式：直接返回 Promise，不触任何 wx API
-    return Promise.resolve(buildMock(url, data || {}));
-  }
-  // 真实后端模式
+  if (MOCK_MODE) return Promise.resolve(buildMock(url, data || {}));
   return new Promise(function (resolve, reject) {
     try {
       var token = '';
-      try { token = wx.getStorageSync('token') || ''; } catch (e) { /* ignore */ }
+      try { token = wx.getStorageSync('token') || ''; } catch (e) {}
       wx.request({
         url: BASE + url,
         method: method || 'GET',
@@ -99,7 +123,11 @@ function request(url, method, data) {
         header: { 'content-type': 'application/json', Authorization: token ? 'Bearer ' + token : '' },
         timeout: 8000,
         success: function (res) {
-          if (res.statusCode === 401) { try { wx.clearStorageSync(); } catch (e) {} wx.reLaunch({ url: '/pages/login/login' }); return; }
+          if (res.statusCode === 401) {
+            try { wx.clearStorageSync(); } catch (e) {}
+            wx.reLaunch({ url: '/pages/login/login' });
+            return;
+          }
           if (res.data && res.data.code === 200) resolve(res.data);
           else reject(res.data || { message: '请求失败' });
         },
@@ -111,6 +139,7 @@ function request(url, method, data) {
 
 module.exports = {
   MOCK_MODE: MOCK_MODE,
+  placeholder: placeholder,
   request: request,
   login: function (data) { return request('/auth/login', 'POST', data); },
   switchMode: function (data) { return request('/auth/mode/switch', 'POST', data); },

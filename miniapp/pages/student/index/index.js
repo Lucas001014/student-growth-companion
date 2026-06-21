@@ -1,6 +1,20 @@
-var api = require('../../../utils/api.js');
-var auth = require('../../../utils/auth.js');
-var util = require('../../../utils/util.js');
+// 班级荣誉皮肤系统 - 学生成长陪伴（学生端首页）
+// 重要：所有图片采用本地 SVG 色块占位，避免请求外部网络导致的 WAServiceMainContext timeout
+
+function ph(color, label) {
+  var svg =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="240" viewBox="0 0 400 240">' +
+      '<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">' +
+        '<stop offset="0%" stop-color="#' + color + '" stop-opacity="0.95"/>' +
+        '<stop offset="100%" stop-color="#' + color + '" stop-opacity="0.7"/>' +
+      '</linearGradient></defs>' +
+      '<rect width="400" height="240" rx="20" fill="url(#g)"/>' +
+      '<text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" ' +
+        'font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="40" fill="#ffffff" font-weight="bold">' +
+        label + '</text>' +
+    '</svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
 
 Page({
   data: {
@@ -11,10 +25,10 @@ Page({
       identity: '学习委员'
     },
     recentSkins: [
-      { id: 1, name: '星空战士', rarity: 'SSR', imageUrl: 'https://via.placeholder.com/200x200/667eea/ffffff?text=SSR' },
-      { id: 2, name: '海洋之心', rarity: 'SR', imageUrl: 'https://via.placeholder.com/200x200/06b6d4/ffffff?text=SR' },
-      { id: 3, name: '森林守卫', rarity: 'R', imageUrl: 'https://via.placeholder.com/200x200/22c55e/ffffff?text=R' },
-      { id: 4, name: '火焰骑士', rarity: 'N', imageUrl: 'https://via.placeholder.com/200x200/f56c6c/ffffff?text=N' }
+      { id: 1, name: '星空战士', rarity: 'SSR', imageUrl: ph('6366f1', '星空') },
+      { id: 2, name: '海洋之心', rarity: 'SR', imageUrl: ph('0ea5e9', '海洋') },
+      { id: 3, name: '森林守卫', rarity: 'R', imageUrl: ph('22c55e', '森林') },
+      { id: 4, name: '火焰骑士', rarity: 'N', imageUrl: ph('ef4444', '火焰') }
     ],
     honorEvents: [
       { id: 1, title: '获得积分 +10（课堂表现）', time: '今天 14:30' },
@@ -24,44 +38,49 @@ Page({
   },
 
   onShow: function () {
-    var user = auth.getUser();
-    if (user && user.name) {
-      this.setData({
-        user: {
-          name: user.name || '同学',
-          studentNo: user.studentNo || '-',
-          points: user.points || 0,
-          identity: user.identity || '学习委员'
-        }
-      });
-    }
+    try {
+      var user = wx.getStorageSync('user');
+      if (user && user.name) {
+        this.setData({
+          user: {
+            name: user.name || '同学',
+            studentNo: user.studentNo || '-',
+            points: user.points || 0,
+            identity: user.identity || '学习委员'
+          }
+        });
+      }
+    } catch (e) {}
   },
 
   goSkins: function () {
-    wx.navigateTo({ url: '/pages/student/skins/skins' });
+    try { wx.navigateTo({ url: '/pages/student/skins/skins' }); } catch (e) {}
   },
   goRanking: function () {
-    wx.navigateTo({ url: '/pages/student/ranking/ranking' });
+    try { wx.navigateTo({ url: '/pages/student/ranking/ranking' }); } catch (e) {}
   },
   goBlindbox: function () {
-    wx.navigateTo({ url: '/pages/student/blindbox/blindbox' });
+    try { wx.navigateTo({ url: '/pages/student/blindbox/blindbox' }); } catch (e) {}
   },
   goHomework: function () {
-    wx.navigateTo({ url: '/pages/student/homework-show/homework-show' });
+    try { wx.navigateTo({ url: '/pages/student/homework-show/homework-show' }); } catch (e) {}
   },
   goParent: function () {
-    wx.navigateTo({ url: '/pages/student/parent/confirm/confirm' });
+    try { wx.navigateTo({ url: '/pages/student/parent/confirm/confirm' }); } catch (e) {}
   },
   logout: function () {
-    wx.showModal({
+    var that = this;
+    try {
+      wx.showModal({
       title: '提示',
       content: '确认退出登录？',
       success: function (res) {
         if (res.confirm) {
-          auth.logout();
-          wx.reLaunch({ url: '/pages/login/login' });
+          try { wx.clearStorageSync(); } catch (e) {}
+          try { wx.reLaunch({ url: '/pages/login/login' }); } catch (e) {}
         }
       }
     });
+    } catch (e) {}
   }
 });

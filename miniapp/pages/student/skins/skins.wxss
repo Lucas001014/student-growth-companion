@@ -1,10 +1,93 @@
-.filter-bar { display: flex; background: #fff; border-radius: 16rpx; padding: 16rpx; margin-bottom: 30rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06); }
-.filter-item { flex: 1; text-align: center; padding: 16rpx 0; font-size: 26rpx; color: #6b7280; border-radius: 12rpx; }
-.filter-item.active { background: #409EFF; color: #fff; font-weight: 600; }
-.skin-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; }
-.skin-card { background: #fff; border-radius: 16rpx; padding: 20rpx; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06); }
-.skin-card.not-owned { opacity: 0.5; }
-.skin-image { position: relative; width: 100%; height: 280rpx; border-radius: 12rpx; overflow: hidden; background: #f3f4f6; }
-.skin-image image { width: 100%; height: 100%; display: block; }
-.skin-tag { position: absolute; top: 12rpx; right: 12rpx; padding: 6rpx 16rpx; border-radius: 20rpx; font-size: 22rpx; font-weight: bold; }
-.skin-name { text-align: center; padding: 16rpx 0 4rpx; font-size: 28rpx; font-weight: 500; }
+.container { 
+  padding: 24rpx 24rpx 80rpx 24rpx; 
+  background: #f1f5f9; 
+  min-height: 100vh;
+}
+
+/* 过滤器 */
+.filter-bar { 
+  display: flex; 
+  background: #ffffff; 
+  border-radius: 20rpx; 
+  padding: 12rpx; 
+  margin-bottom: 24rpx; 
+  box-shadow: 0 2rpx 12rpx rgba(15,23,42,0.04);
+}
+
+.filter-item { 
+  flex: 1; 
+  text-align: center; 
+  padding: 18rpx 0; 
+  font-size: 26rpx; 
+  color: #64748b; 
+  border-radius: 14rpx; 
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.filter-item.active { 
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); 
+  color: #ffffff; 
+  font-weight: 600; 
+  box-shadow: 0 4rpx 12rpx rgba(37,99,235,0.25);
+}
+
+/* 皮肤网格 */
+.skin-grid { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 16rpx; 
+}
+
+.skin-card { 
+  background: #ffffff; 
+  border-radius: 20rpx; 
+  padding: 16rpx; 
+  box-shadow: 0 2rpx 12rpx rgba(15,23,42,0.04);
+  transition: transform 0.2s ease;
+}
+
+.skin-card.not-owned { 
+  opacity: 0.5; 
+  background: #f8fafc;
+}
+
+.skin-image { 
+  position: relative; 
+  width: 100%; 
+  height: 280rpx; 
+  border-radius: 16rpx; 
+  overflow: hidden; 
+  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+}
+
+.skin-image image { 
+  width: 100%; 
+  height: 100%; 
+  display: block; 
+}
+
+.skin-tag { 
+  position: absolute; 
+  top: 12rpx; 
+  right: 12rpx; 
+  padding: 8rpx 18rpx; 
+  border-radius: 20rpx; 
+  font-size: 22rpx; 
+  font-weight: 600; 
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.1);
+}
+
+.skin-name { 
+  text-align: center; 
+  padding: 16rpx 0 8rpx; 
+  font-size: 26rpx; 
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* 稀有度标签色 */
+.skin-tag.tag-n { color: #64748b; background: #f1f5f9; }
+.skin-tag.tag-r { color: #2563eb; background: #dbeafe; }
+.skin-tag.tag-sr { color: #ea580c; background: #ffedd5; }
+.skin-tag.tag-ssr { color: #dc2626; background: #fee2e2; }

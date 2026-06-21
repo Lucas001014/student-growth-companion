@@ -1,414 +1,405 @@
 <template>
   <div class="student-layout">
-    <aside class="sidebar" :class="{ collapsed: sidebarOpen === false }">
-      <div class="sidebar-header">
-        <div class="brand-logo">
-          <span class="logo-icon">🌱</span>
-          <span class="logo-text" v-if="sidebarOpen">成长陪伴</span>
+    <el-container>
+      <!-- 左侧侧边栏 -->
+      <el-aside width="240px" class="sidebar">
+        <div class="logo-box">
+          <div class="logo-icon">📚</div>
+          <div class="logo-text">
+            <div class="logo-title">成长陪伴</div>
+            <div class="logo-sub">学生端</div>
+          </div>
         </div>
-        <button class="collapse-btn" @click="toggleSidebar">
-          <span>{{ sidebarOpen ? '◀' : '▶' }}</span>
-        </button>
-      </div>
 
-      <el-menu :default-active="activeMenu" mode="vertical" class="sidebar-menu">
-        <div class="menu-section">
-          <span class="section-label">我的成长</span>
+        <el-menu
+          :default-active="activeMenu"
+          class="side-menu"
+          @select="handleMenuSelect"
+          background-color="transparent"
+          text-color="#475569"
+          active-text-color="#2563eb"
+          router
+        >
           <el-menu-item index="/student/dashboard">
-            <span slot="icon">📊</span>
-            <span>成长看板</span>
+            <span class="menu-icon">🏠</span>
+            <span>我的主页</span>
           </el-menu-item>
-          <el-menu-item index="/student/achievements">
-            <span slot="icon">🏅</span>
-            <span>成就中心</span>
+          <el-menu-item index="/student/honor-walls">
+            <span class="menu-icon">🏆</span>
+            <span>荣誉墙</span>
           </el-menu-item>
-          <el-menu-item index="/student/mySkins">
-            <span slot="icon">🎨</span>
-            <span>我的皮肤</span>
-          </el-menu-item>
-        </div>
-
-        <div class="menu-section">
-          <span class="section-label">互动</span>
-          <el-menu-item index="/student/blindBox">
-            <span slot="icon">🎁</span>
+          <el-menu-item index="/student/blind-box">
+            <span class="menu-icon">🎁</span>
             <span>惊喜盲盒</span>
           </el-menu-item>
-          <el-menu-item index="/student/ranking">
-            <span slot="icon">🏆</span>
+          <el-menu-item index="/student/rankings">
+            <span class="menu-icon">📊</span>
             <span>成长排行</span>
           </el-menu-item>
-          <el-menu-item index="/student/requests">
-            <span slot="icon">📝</span>
-            <span>申请记录</span>
+          <el-menu-item index="/student/profile">
+            <span class="menu-icon">👤</span>
+            <span>个人中心</span>
           </el-menu-item>
-        </div>
+        </el-menu>
 
-        <div class="menu-section">
-          <span class="section-label">设置</span>
-          <el-menu-item index="/student/settings">
-            <span slot="icon">⚙️</span>
-            <span>个人设置</span>
-          </el-menu-item>
-        </div>
-      </el-menu>
-
-      <div class="sidebar-footer">
-        <div class="user-info" v-if="sidebarOpen">
-          <span class="user-icon">👨‍🎓</span>
-          <div class="user-detail">
-            <div class="user-name">{{ auth.user?.name || '学生' }}</div>
-            <div class="user-role">{{ auth.user?.className || '学生' }}</div>
+        <div class="sidebar-footer">
+          <div class="student-card">
+            <div class="student-avatar">👨‍🎓</div>
+            <div class="student-info">
+              <div class="student-name">{{ studentInfo?.name || '同学' }}</div>
+              <div class="student-meta">成长积分 {{ studentInfo?.points || 0 }}</div>
+            </div>
           </div>
         </div>
-        <button class="logout-btn" @click="handleLogout">
-          <span>🚪</span>
-          <span v-if="sidebarOpen">退出</span>
-        </button>
-      </div>
-    </aside>
+      </el-aside>
 
-    <main class="main-content">
-      <header class="page-header">
-        <div class="header-left">
-          <div class="page-breadcrumb">
-            <span class="breadcrumb-item">成长中心</span>
-            <span class="breadcrumb-arrow">›</span>
-            <span class="breadcrumb-item active">{{ currentTitle }}</span>
+      <!-- 右侧内容区 -->
+      <el-container class="main-container">
+        <el-header class="top-header">
+          <div class="header-left">
+            <span class="page-title">{{ currentPageTitle }}</span>
           </div>
-        </div>
-        <div class="header-right">
-          <div class="points-chip">
-            <span class="points-icon">⭐</span>
-            <span class="points-value">{{ points }}</span>
-            <span class="points-label">成长值</span>
+          <div class="header-right">
+            <div class="search-box">
+              <span class="search-icon">🔍</span>
+              <input type="text" placeholder="搜索..." class="search-input" />
+            </div>
+            <el-badge :value="3" class="header-badge">
+              <button class="icon-btn">🔔</button>
+            </el-badge>
+            <button class="icon-btn">⚙️</button>
+            <el-dropdown>
+              <div class="user-info">
+                <div class="user-avatar-small">👨‍🎓</div>
+                <div class="user-text">
+                  <div class="user-name">{{ studentInfo?.name || '同学' }}</div>
+                  <div class="user-role">学生</div>
+                </div>
+              </div>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
           </div>
-          <div class="mode-switch">
-            <span>{{ currentModeLabel }}</span>
-          </div>
-        </div>
-      </header>
+        </el-header>
 
-      <div class="content-area">
-        <router-view />
-      </div>
-    </main>
+        <el-main class="content-main">
+          <router-view />
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue';
-import { useRouter, useRoute } from 'vue-router';
-import { useAuthStore } from '../../stores/auth';
+import { computed, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useStudentStore } from '../../stores/student';
-import { ElMessage } from 'element-plus';
 
-const router = useRouter();
 const route = useRoute();
-const auth = useAuthStore();
-const studentStore = useStudentStore();
+const router = useRouter();
+const store = useStudentStore();
 
-const sidebarOpen = ref(true);
-const activeMenu = ref('');
-const points = ref(0);
+const studentInfo = computed(() => store.studentInfo);
 
-const currentTitle = computed(() => {
+const activeMenu = ref(route.path);
+
+const currentPageTitle = computed(() => {
   const titles: Record<string, string> = {
-    '/student/dashboard': '成长看板',
-    '/student/achievements': '成就中心',
-    '/student/mySkins': '我的皮肤',
-    '/student/blindBox': '惊喜盲盒',
-    '/student/ranking': '成长排行',
-    '/student/requests': '申请记录',
-    '/student/settings': '个人设置'
+    '/student/dashboard': '我的主页',
+    '/student/honor-walls': '荣誉墙',
+    '/student/blind-box': '惊喜盲盒',
+    '/student/rankings': '成长排行',
+    '/student/profile': '个人中心',
   };
-  return titles[route.path] || '成长中心';
+  return titles[route.path] || '学生成长陪伴';
 });
 
-const currentModeLabel = computed(() => {
-  const mode = auth.mode;
-  return mode === 'parent' ? '👨‍👩‍👧 家长视角' : '👨‍🎓 学生视角';
-});
-
-const toggleSidebar = () => {
-  sidebarOpen.value = !sidebarOpen.value;
+const handleMenuSelect = (index: string) => {
+  activeMenu.value = index;
 };
 
 const handleLogout = () => {
-  localStorage.clear();
-  auth.$reset();
+  localStorage.removeItem('auth');
+  localStorage.removeItem('studentInfo');
+  sessionStorage.removeItem('auth');
   router.push('/login');
-  ElMessage.success('已退出登录');
 };
-
-const handleRouteChange = () => {
-  activeMenu.value = route.path;
-};
-
-onMounted(() => {
-  activeMenu.value = route.path;
-  router.afterEach(handleRouteChange);
-  if (studentStore.student) {
-    points.value = studentStore.student.points || 0;
-  }
-});
-
-onUnmounted(() => {
-  router.afterEach(() => {});
-});
 </script>
 
 <style scoped>
 .student-layout {
-  display: flex;
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: #f1f5f9;
 }
 
+/* 侧边栏 */
 .sidebar {
-  width: 220px;
-  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
-  border-right: 1px solid var(--border-light);
-  transition: width 0.3s ease;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-right: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+  padding: 0;
 }
 
-.sidebar.collapsed {
-  width: 68px;
-}
-
-.sidebar-header {
-  padding: 20px 16px;
+.logo-box {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 12px;
+  padding: 24px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 16px;
 }
 
 .logo-icon {
-  font-size: 32px;
-}
-
-.logo-text {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--primary-color);
-  white-space: nowrap;
-}
-
-.collapse-btn {
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: rgba(16, 185, 129, 0.1);
-  border-radius: 8px;
-  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  color: var(--primary-color);
-  transition: all 0.2s;
+  font-size: 22px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
 }
 
-.collapse-btn:hover {
-  background: rgba(16, 185, 129, 0.2);
+.logo-text .logo-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
 }
 
-.sidebar-menu {
-  flex: 1;
-  padding: 12px 0;
-}
-
-.menu-section {
-  margin-bottom: 20px;
-}
-
-.section-label {
-  display: block;
-  padding: 8px 24px;
+.logo-text .logo-sub {
   font-size: 11px;
-  color: #9ca3af;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: #64748b;
+  margin-top: 2px;
 }
 
-.sidebar-menu :deep(.el-menu-item) {
-  height: 44px;
-  line-height: 44px;
-  margin: 4px 8px;
+.side-menu {
+  flex: 1;
+  border-right: none;
+  padding: 0 12px;
+}
+
+.side-menu :deep(.el-menu-item) {
   border-radius: 10px;
+  height: 48px;
+  line-height: 48px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 16px !important;
+  display: flex;
+  align-items: center;
 }
 
-.sidebar-menu :deep(.el-menu-item.is-active) {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(52, 211, 153, 0.05));
-  color: var(--primary-color);
+.side-menu :deep(.el-menu-item:hover) {
+  background-color: #f1f5f9;
 }
 
-.sidebar-menu :deep(.el-menu-item:hover) {
-  background: rgba(16, 185, 129, 0.06);
+.side-menu :deep(.el-menu-item.is-active) {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+  color: #2563eb;
+}
+
+.menu-icon {
+  margin-right: 12px;
+  font-size: 18px;
 }
 
 .sidebar-footer {
   padding: 16px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid #e2e8f0;
 }
 
-.user-info {
+.student-card {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
-  background: rgba(16, 185, 129, 0.06);
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #dbeafe 0%, #fef3c7 100%);
+  border-radius: 14px;
+  border: 1px solid #bfdbfe;
+}
+
+.student-avatar {
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
   border-radius: 12px;
-  margin-bottom: 12px;
-}
-
-.user-icon {
-  font-size: 32px;
-}
-
-.user-detail {
-  flex: 1;
-  min-width: 0;
-}
-
-.user-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.user-role {
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.logout-btn {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px;
-  border: none;
-  background: rgba(239, 68, 68, 0.08);
-  border-radius: 10px;
-  color: var(--danger-color);
+  font-size: 22px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.student-info .student-name {
   font-size: 14px;
-  cursor: pointer;
-  transition: all 0.2s;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 2px;
 }
 
-.logout-btn:hover {
-  background: rgba(239, 68, 68, 0.15);
+.student-info .student-meta {
+  font-size: 12px;
+  color: #64748b;
 }
 
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
+/* 主内容区 */
+.main-container {
+  height: 100vh;
 }
 
-.page-header {
+.top-header {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
-  background: #ffffff;
-  border-bottom: 1px solid var(--border-light);
+  padding: 0 32px;
+  height: 68px;
 }
 
-.page-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-}
-
-.breadcrumb-item {
-  color: var(--text-secondary);
-}
-
-.breadcrumb-item.active {
-  color: var(--primary-color);
-  font-weight: 600;
-}
-
-.breadcrumb-arrow {
-  color: var(--text-muted);
+.header-left .page-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .header-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
-.points-chip {
+.search-box {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 146, 60, 0.05));
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  border-radius: 24px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 8px 14px;
+  width: 220px;
+  transition: all 0.2s ease;
 }
 
-.points-icon {
-  font-size: 18px;
+.search-box:focus-within {
+  background: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
-.points-value {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: #f59e0b;
+.search-icon {
+  font-size: 14px;
+  opacity: 0.6;
 }
 
-.points-label {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-.mode-switch {
-  padding: 8px 16px;
-  background: rgba(16, 185, 129, 0.08);
-  border-radius: 8px;
-  font-size: 13px;
-  color: var(--primary-color);
-}
-
-.content-area {
+.search-input {
   flex: 1;
-  padding: 24px;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #f1f5f9;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #e2e8f0;
+}
+
+.header-badge {
+  margin: 0;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.user-info:hover {
+  background: #e2e8f0;
+}
+
+.user-avatar-small {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.user-text .user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.user-text .user-role {
+  font-size: 11px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.content-main {
+  padding: 28px 32px;
+  background: #f1f5f9;
   overflow-y: auto;
 }
 
-@media (max-width: 768px) {
+.content-main :deep(.el-breadcrumb__inner) {
+  color: #64748b !important;
+  font-size: 13px !important;
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
   .sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    z-index: 100;
-    transform: translateX(0);
-    transition: transform 0.3s ease;
+    width: 72px !important;
   }
-  .sidebar.collapsed {
-    transform: translateX(-100%);
+  .logo-text,
+  .student-info,
+  .side-menu :deep(.el-menu-item span:not(.menu-icon)) {
+    display: none;
+  }
+  .top-header {
+    padding: 0 16px;
+  }
+  .content-main {
+    padding: 20px 16px;
   }
 }
 </style>

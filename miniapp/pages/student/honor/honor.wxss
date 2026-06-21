@@ -1,25 +1,197 @@
-.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; margin-bottom: 30rpx; }
-.stat-card { border-radius: 16rpx; padding: 30rpx 20rpx; text-align: center; color: #fff; }
-.stat-blue { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-.stat-green { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-.stat-orange { background: linear-gradient(135deg, #fa709a, #fee140); }
-.stat-red { background: linear-gradient(135deg, #f093fb, #f5576c); }
-.stat-num { font-size: 48rpx; font-weight: bold; }
-.stat-label { font-size: 24rpx; margin-top: 8rpx; opacity: 0.9; }
-.item-row { display: flex; align-items: center; padding: 20rpx 0; border-bottom: 2rpx solid #f3f4f6; }
-.item-row:last-child { border-bottom: none; }
-.item-icon { font-size: 48rpx; margin-right: 20rpx; }
-.item-info { flex: 1; }
-.item-title { font-size: 30rpx; font-weight: 500; }
-.log-row { display: flex; align-items: center; justify-content: space-between; padding: 20rpx 0; border-bottom: 2rpx solid #f3f4f6; }
-.log-row:last-child { border-bottom: none; }
-.log-pts { font-size: 32rpx; font-weight: bold; }
-.log-pts.pos { color: #67C23A; }
-.log-pts.neg { color: #F56C6C; }
-.badge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20rpx; }
-.badge-card { background: #fff; border-radius: 16rpx; padding: 30rpx 20rpx; text-align: center; box-shadow: 0 2rpx 12rpx rgba(0,0,0,0.06); }
-.badge-card.locked { opacity: 0.4; }
-.badge-emoji { font-size: 60rpx; margin-bottom: 12rpx; }
-.badge-name { font-size: 28rpx; font-weight: 500; }
-.badge-desc { font-size: 22rpx; color: #909399; margin-top: 4rpx; }
-.empty { text-align: center; padding: 40rpx 0; color: #909399; font-size: 26rpx; }
+.container { 
+  padding: 24rpx 24rpx 80rpx 24rpx; 
+  background: #f1f5f9; 
+  min-height: 100vh;
+}
+
+/* 顶部统计卡片 */
+.stats-grid { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 16rpx; 
+  margin-bottom: 24rpx; 
+}
+
+.stat-card { 
+  border-radius: 20rpx; 
+  padding: 32rpx 20rpx; 
+  text-align: center; 
+  color: #ffffff;
+  box-shadow: 0 4rpx 16rpx rgba(15,23,42,0.08);
+}
+
+.stat-blue { 
+  background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%); 
+}
+.stat-green { 
+  background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%); 
+}
+.stat-orange { 
+  background: linear-gradient(135deg, #fb923c 0%, #ea580c 100%); 
+}
+.stat-red { 
+  background: linear-gradient(135deg, #f472b6 0%, #db2777 100%); 
+}
+
+.stat-num { 
+  font-size: 48rpx; 
+  font-weight: 700; 
+  line-height: 1.1;
+}
+
+.stat-label { 
+  font-size: 24rpx; 
+  margin-top: 8rpx; 
+  opacity: 0.95; 
+}
+
+.section-title { 
+  font-size: 30rpx; 
+  font-weight: 700; 
+  color: #0f172a; 
+  margin: 28rpx 0 18rpx 4rpx; 
+}
+
+/* 卡片列表 */
+.card { 
+  background: #ffffff; 
+  border-radius: 20rpx; 
+  padding: 12rpx 28rpx; 
+  box-shadow: 0 2rpx 12rpx rgba(15,23,42,0.04);
+  margin-bottom: 20rpx;
+}
+
+.item-row { 
+  display: flex; 
+  align-items: center; 
+  padding: 20rpx 0; 
+  border-bottom: 2rpx solid #f1f5f9; 
+}
+
+.item-row:last-child { 
+  border-bottom: none; 
+}
+
+.item-icon { 
+  font-size: 44rpx; 
+  margin-right: 20rpx; 
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.item-info { 
+  flex: 1; 
+}
+
+.item-title { 
+  font-size: 28rpx; 
+  font-weight: 600; 
+  color: #1e293b;
+}
+
+/* 积分日志 */
+.log-row { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  padding: 20rpx 0; 
+  border-bottom: 2rpx solid #f1f5f9; 
+}
+
+.log-row:last-child { 
+  border-bottom: none; 
+}
+
+.log-info {
+  flex: 1;
+}
+
+.log-title {
+  font-size: 28rpx;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.log-pts { 
+  font-size: 30rpx; 
+  font-weight: 700; 
+  padding: 8rpx 16rpx;
+  border-radius: 12rpx;
+  min-width: 100rpx;
+  text-align: center;
+}
+
+.log-pts.pos { 
+  color: #16a34a; 
+  background: #dcfce7;
+}
+.log-pts.neg { 
+  color: #dc2626; 
+  background: #fee2e2;
+}
+
+/* 徽章网格 */
+.badge-grid { 
+  display: grid; 
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 16rpx; 
+}
+
+.badge-card { 
+  background: #ffffff; 
+  border-radius: 20rpx; 
+  padding: 36rpx 20rpx; 
+  text-align: center; 
+  box-shadow: 0 2rpx 12rpx rgba(15,23,42,0.04);
+  border: 2rpx solid #f1f5f9;
+}
+
+.badge-card.locked { 
+  opacity: 0.45; 
+  background: #f8fafc;
+}
+
+.badge-emoji { 
+  font-size: 64rpx; 
+  margin-bottom: 12rpx; 
+}
+
+.badge-name { 
+  font-size: 28rpx; 
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.badge-desc { 
+  font-size: 22rpx; 
+  color: #64748b; 
+  margin-top: 6rpx; 
+}
+
+/* 空状态 */
+.empty { 
+  text-align: center; 
+  padding: 48rpx 0; 
+  color: #94a3b8; 
+  font-size: 26rpx; 
+}
+
+/* 辅助文字 */
+.text-muted { 
+  font-size: 22rpx; 
+  color: #64748b; 
+  margin-top: 6rpx; 
+  display: block;
+}
+
+/* 稀有度标签 */
+.tag-n { color: #64748b; background: #f1f5f9; padding: 6rpx 16rpx; border-radius: 20rpx; font-size: 22rpx; font-weight: 500;}
+.tag-r { color: #2563eb; background: #dbeafe; padding: 6rpx 16rpx; border-radius: 20rpx; font-size: 22rpx; font-weight: 500;}
+.tag-sr { color: #ea580c; background: #ffedd5; padding: 6rpx 16rpx; border-radius: 20rpx; font-size: 22rpx; font-weight: 500;}
+.tag-ssr { color: #dc2626; background: #fee2e2; padding: 6rpx 16rpx; border-radius: 20rpx; font-size: 22rpx; font-weight: 600;}
